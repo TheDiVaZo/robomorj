@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.morj.bot.robomorj.config.core.ConfigHolder;
-import org.morj.bot.robomorj.config.serializer.URLSerializer;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
 import java.io.File;
 import java.net.URL;
@@ -49,5 +47,8 @@ public class MainConfig extends ConfigHolder<MainConfig> {
     @FieldDefaults(level = AccessLevel.PUBLIC)
     public static class ForumBotConfig {
         String botToken = "";
+        String linkToForum = "https://google.com";
+        String authUser = "user";
+        String authPass = "password";
     }
 }
