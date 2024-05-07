@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.morj.bot.robomorj.config.core.ConfigHolder;
+import org.morj.bot.robomorj.database.engine.credentials.DatabaseCredentials;
+import org.morj.bot.robomorj.database.engine.url.DatabaseTypeUrl;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.io.File;
@@ -50,29 +52,35 @@ public class MainConfig extends ConfigHolder<MainConfig> {
     public static class ForumBotConfig {
         String botToken = "";
         String linkToForum = "https://google.com";
-        String authUser = "user";
-        String authPass = "password";
     }
 
     @ConfigSerializable
     @Data
     public static class Database {
+        boolean isMySQL = false;
+
+        String h2FileName = "database";
+
         String host = "localhost";
         int port = 3310;
         String database = "testdb";
+
         String username = "user";
         String password = "qwerty123";
 
         boolean useParams = false;
         String params = "";
 
-        public DatabaseCredentials asCredentials() {
-            return DatabaseCredentials.getCredentials(
-                    DatabaseTypeUrl.MYSQL,
-                    host + ":" + port + "/" + database +
-                            (useParams ? "?" + params : ""),
-                    username,
-                    password);
+        public DatabaseCredentials asCredentials(String absolutePath) {
+            return DatabaseCredentials.getCredentials(isMySQL ? DatabaseTypeUrl.MYSQL : DatabaseTypeUrl.H2, getUrl(absolutePath), username, password);
+        }
+
+        private String getUrl(String absolutePath) {
+            if (isMySQL) {
+                return host + ":" + port + "/" + database + (useParams ? "?" + params : "");
+            } else {
+                return absolutePath + File.separator + h2FileName;
+            }
         }
     }
 }

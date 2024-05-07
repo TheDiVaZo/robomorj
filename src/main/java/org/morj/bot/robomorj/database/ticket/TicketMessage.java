@@ -1,8 +1,6 @@
 package org.morj.bot.robomorj.database.ticket;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Data;
 
@@ -11,14 +9,14 @@ import lombok.Data;
  * created on 07.05.2024
  */
 @Data
-@DatabaseTable(tableName = "tickets")
-public class TicketTable {
+@DatabaseTable(tableName = "ticket_messages")
+public class TicketMessage {
+    @DatabaseField(canBeNull = false, foreign = true)
+    TicketTable ticketTable;
     @DatabaseField(id = true)
     long id;
     @DatabaseField
-    boolean isPin;
+    long authorId;
     @DatabaseField
-    boolean isClosed;
-    @ForeignCollectionField
-    ForeignCollection<TicketMessage> history;
+    String message;
 }
