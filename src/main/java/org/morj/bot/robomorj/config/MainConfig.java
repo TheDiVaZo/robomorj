@@ -2,13 +2,13 @@ package org.morj.bot.robomorj.config;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.morj.bot.robomorj.config.core.ConfigHolder;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.io.File;
-import java.net.URL;
 
 /**
  * @author TheDiVaZo
@@ -30,7 +30,9 @@ public class MainConfig extends ConfigHolder<MainConfig> {
 
     DiscordBotConfig discordBotConfig;
 
-    ForumBotConfig forumBotConfig = new ForumBotConfig();
+    Database database = new Database();
+
+    //ForumBotConfig forumBotConfig = new ForumBotConfig();
 
     @ConfigSerializable
     @AllArgsConstructor
@@ -50,5 +52,27 @@ public class MainConfig extends ConfigHolder<MainConfig> {
         String linkToForum = "https://google.com";
         String authUser = "user";
         String authPass = "password";
+    }
+
+    @ConfigSerializable
+    @Data
+    public static class Database {
+        String host = "localhost";
+        int port = 3310;
+        String database = "testdb";
+        String username = "user";
+        String password = "qwerty123";
+
+        boolean useParams = false;
+        String params = "";
+
+        public DatabaseCredentials asCredentials() {
+            return DatabaseCredentials.getCredentials(
+                    DatabaseTypeUrl.MYSQL,
+                    host + ":" + port + "/" + database +
+                            (useParams ? "?" + params : ""),
+                    username,
+                    password);
+        }
     }
 }
