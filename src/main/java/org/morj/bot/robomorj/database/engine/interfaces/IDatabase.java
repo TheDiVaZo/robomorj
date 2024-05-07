@@ -65,6 +65,10 @@ public interface IDatabase<T, ID> extends IAsyncAutoCloseableDao<T, ID> {
         return this.runDaoQuery(dao -> dao.create(element));
     }
 
+    default CompletableFuture<Void> createOrUpdateElement(T element) {
+        return this.runDaoQuery(dao -> dao.createOrUpdate(element));
+    }
+
     default void initialize() {
         this.createTable().join();
     }
