@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.j256.ormlite:ormlite-jdbc:6.1'
     implementation 'com.j256.ormlite:ormlite-core:6.1'
     implementation 'com.zaxxer:HikariCP:2.3.2'
+    implementation 'com.h2database:h2:1.4.199'
 
 
     //Bot integration

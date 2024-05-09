@@ -30,6 +30,8 @@ public class MainConfig extends ConfigHolder<MainConfig> {
         this(null);
     }
 
+    String guildConfigsFolder = "guilds";
+
     DiscordBotConfig discordBotConfig;
 
     Database database = new Database();

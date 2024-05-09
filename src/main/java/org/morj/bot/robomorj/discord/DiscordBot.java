@@ -1,4 +1,4 @@
-package org.morj.bot.robomorj.bot;
+package org.morj.bot.robomorj.discord;
 
 import lombok.Getter;
 import net.dv8tion.jda.api.OnlineStatus;

@@ -1,15 +1,14 @@
 package org.morj.bot.robomorj;
 
+import com.j256.ormlite.jdbc.db.H2DatabaseType;
+import com.j256.ormlite.jdbc.db.MysqlDatabaseType;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageHistory;
-import org.apache.log4j.LogManager;
-import org.morj.bot.robomorj.bot.DiscordBot;
+import org.morj.bot.robomorj.discord.DiscordBot;
 import org.morj.bot.robomorj.config.ConfigContainer;
+import org.morj.bot.robomorj.database.DatabaseContainer;
 import org.morj.bot.robomorj.util.DatabaseUtil;
 
-import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,12 +23,13 @@ public class RoboMorj {
     private DiscordBot discordBot;
 
     private DatabaseUtil databaseUtil;
-    private final String dataFolder;
+    private DatabaseContainer databaseContainer;
+    private final Path dataFolder;
 
     public RoboMorj(String dataFolder) {
-        this.dataFolder = dataFolder;
+        this.dataFolder = Path.of(dataFolder).toAbsolutePath();
         initConfigContainer(dataFolder);
-        initDatabaseUtil();
+        initDatabase();
         initDiscordBot();
     }
 
@@ -49,8 +49,11 @@ public class RoboMorj {
         }
     }
 
-    private void initDatabaseUtil() {
-        this.databaseUtil = new DatabaseUtil(Path.of(dataFolder, "hikari").toAbsolutePath().toString());
+    private void initDatabase() {
+        this.databaseUtil = new DatabaseUtil(dataFolder.resolve("hikari").toString());
+        this.databaseContainer = new DatabaseContainer(
+                configContainer.getMainConfig().database.isMySQL() ? new MysqlDatabaseType(): new H2DatabaseType(),
+                ()-> databaseUtil.getHikariPool(configContainer.getMainConfig().database.asCredentials(dataFolder.resolve("data").toString())));
     }
 
     public void reloadConfigs() {

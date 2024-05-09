@@ -50,4 +50,8 @@ public class DatabaseUtil {
 
         return src;
     }
+
+    public DelegateHikariDataSource getHikariPool(DatabaseCredentials credentials) {
+        return this.getHikariPool(credentials.getUrl(), credentials.getUsername(), credentials.getPassword());
+    }
 }
