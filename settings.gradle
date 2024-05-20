@@ -1,2 +1,5 @@
 rootProject.name = 'robomorj'
+include 'common'
+include 'ticket-system'
+include 'core'
 

@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.morj.bot.robomorj'
+version = '1.0-SNAPSHOT'
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+
+    //Util
+    implementation 'org.jooq:jool:0.9.13'
+
+    //Log
+    implementation 'log4j:log4j:1.2.17'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+
+    //Command
+    implementation 'net.dv8tion:JDA:5.0.0-beta.15'
+
+    //Config
+    implementation 'org.spongepowered:configurate-yaml:4.1.2'
+
+    //Database
+    implementation 'com.j256.ormlite:ormlite-jdbc:6.1'
+    implementation 'com.j256.ormlite:ormlite-core:6.1'
+    implementation 'com.zaxxer:HikariCP:2.3.2'
+    implementation 'com.h2database:h2:1.4.199'
+
+
+    //Bot integration
+    implementation 'org.incendo:cloud-jda5:1.0.0-beta.2'
+    implementation 'com.github.cadox8:XenAPI:0.5.0'
+
+    //Logging
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+//    implementation 'log4j:log4j:1.2.17'
+//    implementation 'org.slf4j:slf4j-api:2.0.13'
+//    implementation 'org.slf4j:slf4j-simple:2.0.13'
+
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    //Test
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'net.dv8tion:JDA:5.0.0-beta.15'
+    testImplementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    testImplementation 'org.slf4j:slf4j-api:2.0.13'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.13'
+    testImplementation 'org.spongepowered:configurate-yaml:4.1.2'
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    testImplementation 'com.j256.ormlite:ormlite-jdbc:6.1'
+    testImplementation 'org.incendo:cloud-jda5:1.0.0-beta.2'
+    testImplementation 'com.github.cadox8:XenAPI:0.5.0'
+    testImplementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+    testImplementation 'log4j:log4j:1.2.17'
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+}
+
+test {
+    useJUnitPlatform()
+}
+
