@@ -35,8 +35,6 @@ public class MainConfig extends ConfigHolder<MainConfig> {
 
     //Database database = new Database();
 
-    //ForumBotConfig forumBotConfig = new ForumBotConfig();
-
     @ConfigSerializable
     @AllArgsConstructor
     @NoArgsConstructor
@@ -49,41 +47,32 @@ public class MainConfig extends ConfigHolder<MainConfig> {
     }
 
     @ConfigSerializable
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = AccessLevel.PUBLIC)
-    public static class ForumBotConfig {
-        String botToken = "";
-        String linkToForum = "https://google.com";
-    }
+    @Data
+    public static class Database {
+        boolean isMySQL = false;
 
-//    @ConfigSerializable
-//    @Data
-//    public static class Database {
-//        boolean isMySQL = false;
-//
-//        String h2FileName = "database";
-//
-//        String host = "localhost";
-//        int port = 3310;
-//        String database = "testdb";
-//
-//        String username = "user";
-//        String password = "qwerty123";
-//
-//        boolean useParams = false;
-//        String params = "";
-//
-//        public DatabaseCredentials asCredentials(String absolutePath) {
-//            return DatabaseCredentials.getCredentials(isMySQL ? DatabaseTypeUrl.MYSQL : DatabaseTypeUrl.H2, getUrl(absolutePath), username, password);
-//        }
-//
-//        private String getUrl(String absolutePath) {
-//            if (isMySQL) {
-//                return host + ":" + port + "/" + database + (useParams ? "?" + params : "");
-//            } else {
-//                return absolutePath + File.separator + h2FileName;
-//            }
-//        }
-//    }
+        String h2FileName = "database";
+
+        String host = "localhost";
+        int port = 3310;
+        String database = "testdb";
+
+        String username = "user";
+        String password = "qwerty123";
+
+        boolean useParams = false;
+        String params = "";
+
+        public DatabaseCredentials asCredentials(String absolutePath) {
+            return DatabaseCredentials.getCredentials(isMySQL ? DatabaseTypeUrl.MYSQL : DatabaseTypeUrl.H2, getUrl(absolutePath), username, password);
+        }
+
+        private String getUrl(String absolutePath) {
+            if (isMySQL) {
+                return host + ":" + port + "/" + database + (useParams ? "?" + params : "");
+            } else {
+                return absolutePath + File.separator + h2FileName;
+            }
+        }
+    }
 }
