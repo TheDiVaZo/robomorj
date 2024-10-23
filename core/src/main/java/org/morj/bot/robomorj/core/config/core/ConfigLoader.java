@@ -71,7 +71,7 @@ public class ConfigLoader {
     public void save(File file, Object obj, TypeSerializerCollection... serializers) {
         try {
             YamlConfigurationLoader loader = this.getLoader(file, serializers);
-            CommentedConfigurationNode node = (CommentedConfigurationNode)loader.load();
+            CommentedConfigurationNode node = loader.load();
             node.set(obj.getClass(), obj);
             loader.save(node);
         } catch (Exception var6) {
@@ -80,7 +80,7 @@ public class ConfigLoader {
     }
 
     private YamlConfigurationLoader getLoader(File file, TypeSerializerCollection... serializers) {
-        YamlConfigurationLoader.Builder builder = (YamlConfigurationLoader.Builder)YamlConfigurationLoader.builder().indent(2).nodeStyle(NodeStyle.BLOCK).file(file);
+        YamlConfigurationLoader.Builder builder = YamlConfigurationLoader.builder().indent(2).nodeStyle(NodeStyle.BLOCK).file(file);
         if (serializers.length > 0) {
             builder.defaultOptions((opts) -> {
                 return opts.serializers((b) -> {

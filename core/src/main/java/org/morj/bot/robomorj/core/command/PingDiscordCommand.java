@@ -9,13 +9,15 @@ import org.incendo.cloud.discord.jda5.JDAInteraction;
 import org.incendo.cloud.discord.jda5.ReplySetting;
 import org.incendo.cloud.discord.slash.CommandScope;
 
+import java.util.Objects;
+
 /**
  * @author TheDiVaZo
  * created on 02.05.2024
  */
+@Getter
 @AllArgsConstructor
 public class PingDiscordCommand implements DiscordCommand {
-    @Getter
     private final JDA5CommandManager<JDAInteraction> commandManager;
 
     @Override
@@ -30,6 +32,6 @@ public class PingDiscordCommand implements DiscordCommand {
 
     @Override
     public void execute(@NonNull CommandContext<JDAInteraction> commandContext) {
-        commandContext.sender().interactionEvent().getHook().sendMessage("Я люблю когда волосатые мужики обмазываются маслом").queue();
+        Objects.requireNonNull(commandContext.sender().interactionEvent()).getHook().sendMessage("Я люблю когда волосатые мужики обмазываются маслом").queue();
     }
 }

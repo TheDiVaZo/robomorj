@@ -1,6 +1,7 @@
 package org.morj.bot.robomorj.core.database.engine;
 
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.Getter;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -13,12 +14,8 @@ import java.util.logging.Logger;
  * @author TheDiVaZo
  * created on 08.05.2024
  */
-public class DelegateHikariDataSource implements DataSource {
-    private final HikariDataSource delegate;
-
-    public DelegateHikariDataSource(HikariDataSource delegate) {
-        this.delegate = delegate;
-    }
+@Getter
+public record DelegateHikariDataSource(HikariDataSource delegate) implements DataSource {
 
     public Connection getConnection() throws SQLException {
         return this.delegate.getConnection();
@@ -56,7 +53,4 @@ public class DelegateHikariDataSource implements DataSource {
         return this.delegate.isWrapperFor(iface);
     }
 
-    public HikariDataSource getDelegate() {
-        return this.delegate;
-    }
 }

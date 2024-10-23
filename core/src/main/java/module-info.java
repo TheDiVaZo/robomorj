@@ -13,6 +13,12 @@ module core {
     requires kotlin.stdlib;
     requires log4j;
     requires org.apache.logging.log4j.core;
+    requires org.spongepowered.configurate.yaml;
+    requires annotations;
+    requires HikariCP;
+    requires org.jooq.jool;
+    requires cloud.discord.common;
+    requires org.checkerframework.checker.qual;
     exports org.morj.bot.robomorj.core;
     exports org.morj.bot.robomorj.core.plugin;
     exports org.morj.bot.robomorj.core.discord;
